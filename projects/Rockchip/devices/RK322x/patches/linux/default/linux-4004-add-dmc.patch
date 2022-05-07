@@ -44,9 +44,9 @@ index 88e33eb11..22da2e3cd 100644
 +		rockchip,grf = <&grf>;
 +		devfreq-events = <&dfi>;
 +		upthreshold = <15>;
-+                downdifferential = <10>;
++		downdifferential = <10>;
 +		#cooling-cells = <2>;
-+		status = "disabled";
++		status = "okay";
 +	};
 +
 +	dmc_opp_table: dmc-opp-table {
