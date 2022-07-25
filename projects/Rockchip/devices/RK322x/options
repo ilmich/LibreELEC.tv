@@ -44,4 +44,4 @@
   # set the addon project
     ADDON_PROJECT="ARMv7"
 
-    ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES rockchip-firmware esp8089"
+    ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES rockchip-firmware"
