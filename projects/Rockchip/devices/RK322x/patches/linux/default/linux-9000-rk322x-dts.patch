@@ -942,8 +942,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-trip/arch/arm/boot
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/rk322x-box.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk322x-box.dtsi	2022-07-05 07:57:25.230116160 +0200
-@@ -0,0 +1,1069 @@
++++ linux-trip/arch/arm/boot/dts/rk322x-box.dtsi	2022-07-13 14:16:54.157223578 +0200
+@@ -0,0 +1,1070 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -1081,8 +1081,9 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +&emmc {
 +	/delete-property/ pinctrl-names;
 +	/delete-property/ pinctrl-0;
++	/delete-property/ rockchip,default-sample-phase;
 +
-+	cap-mmc-highspeed;
++	/*cap-mmc-highspeed;*/
 +	keep-power-in-suspend;
 +	non-removable;
 +};
@@ -2015,7 +2016,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk322x.dtsi
 --- linux/arch/arm/boot/dts/rk322x.dtsi	2022-03-13 16:23:25.334634123 +0100
-+++ linux-trip/arch/arm/boot/dts/rk322x.dtsi	2022-07-05 07:57:04.576115295 +0200
++++ linux-trip/arch/arm/boot/dts/rk322x.dtsi	2022-07-05 07:59:04.656120322 +0200
 @@ -126,19 +126,20 @@
  
  		opp-330000000 {

@@ -1,7 +1,7 @@
 diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-box.dts u-boot-new/arch/arm/dts/rk322x-box.dts
 --- u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-box.dts	1970-01-01 01:00:00.000000000 +0100
 +++ u-boot-new/arch/arm/dts/rk322x-box.dts	2022-01-26 10:11:24.960209651 +0100
-@@ -0,0 +1,35 @@
+@@ -0,0 +1,36 @@
 +/*
 + * (C) Copyright 2017 Rockchip Electronics Co., Ltd.
 + *
@@ -31,6 +31,7 @@ diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-b
 +&emmc {
 +	/delete-property/ pinctrl-names; 
 +	/delete-property/ pinctrl-0; 
++	/delete-property/ default-sample-phase;
 +	status = "okay";
 +};
 +
