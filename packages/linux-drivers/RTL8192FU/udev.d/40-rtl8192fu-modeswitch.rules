@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2009-2014 Stephan Raue (stephan@openelec.tv)
+
+ACTION!="add|change", GOTO="end_modeswitch"
+KERNEL!="sr[0-9]*", GOTO="end_modeswitch"
+SUBSYSTEM!="block", GOTO="end_modeswitch"
+
+ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="a192", RUN+="/usr/bin/eject '/dev/%k'"
+
+LABEL="end_modeswitch"
