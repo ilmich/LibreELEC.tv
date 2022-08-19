@@ -1,0 +1,12 @@
+diff -ruPN xbmc-181070c647425a8730fb7d8f1c349cd750e40021/xbmc/windowing/gbm/WinSystemGbmGLESContext.cpp xbmc-new/xbmc/windowing/gbm/WinSystemGbmGLESContext.cpp
+--- xbmc-181070c647425a8730fb7d8f1c349cd750e40021/xbmc/windowing/gbm/WinSystemGbmGLESContext.cpp	2022-07-04 22:02:19.000000000 +0200
++++ xbmc-new/xbmc/windowing/gbm/WinSystemGbmGLESContext.cpp	2022-08-18 11:58:07.919650858 +0200
+@@ -144,7 +144,7 @@
+   }
+   else
+   {
+-    KODI::TIME::Sleep(10);
++    KODI::TIME::Sleep(40);
+   }
+ }
+ 
