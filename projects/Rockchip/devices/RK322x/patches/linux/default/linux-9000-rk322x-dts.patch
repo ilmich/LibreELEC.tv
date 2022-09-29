@@ -1121,8 +1121,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +};
 +
 +&gpu {
-+	assigned-clocks = <&cru ACLK_GPU>;
-+	assigned-clock-rates = <300000000>;
++	/*assigned-clocks = <&cru ACLK_GPU>;
++	assigned-clock-rates = <300000000>;*/
 +};
 +
 +&hdmi {
@@ -2092,10 +2092,10 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk32
 -						<&cpu1 THERMAL_NO_LIMIT 6>,
 -						<&cpu2 THERMAL_NO_LIMIT 6>,
 -						<&cpu3 THERMAL_NO_LIMIT 6>;
-+						<&cpu0 THERMAL_NO_LIMIT 1>,
-+						<&cpu1 THERMAL_NO_LIMIT 1>,
-+						<&cpu2 THERMAL_NO_LIMIT 1>,
-+						<&cpu3 THERMAL_NO_LIMIT 1>;
++						<&cpu0 THERMAL_NO_LIMIT 2>,
++						<&cpu1 THERMAL_NO_LIMIT 2>,
++						<&cpu2 THERMAL_NO_LIMIT 2>,
++						<&cpu3 THERMAL_NO_LIMIT 2>;
  				};
  				map1 {
  					trip = <&cpu_alert1>;
@@ -2104,21 +2104,21 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk32
 -						<&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
 -						<&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
 -						<&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+						<&cpu0 THERMAL_NO_LIMIT 3>,
-+						<&cpu1 THERMAL_NO_LIMIT 3>,
-+						<&cpu2 THERMAL_NO_LIMIT 3>,
-+						<&cpu3 THERMAL_NO_LIMIT 3>;
++						<&cpu0 THERMAL_NO_LIMIT 4>,
++						<&cpu1 THERMAL_NO_LIMIT 4>,
++						<&cpu2 THERMAL_NO_LIMIT 4>,
++						<&cpu3 THERMAL_NO_LIMIT 4>;
  				};
  				map2 {
-+					trip = <&cpu_alert0>;
++					trip = <&cpu_alert1>;
 +					cooling-device =
-+						<&gpu THERMAL_NO_LIMIT 1>;
++						<&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 +				};
 +				map3 {
  					trip = <&cpu_alert1>;
  					cooling-device =
 -						<&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+						<&dmc THERMAL_NO_LIMIT 1>;
++						<&dmc THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
  				};
  			};
  		};
