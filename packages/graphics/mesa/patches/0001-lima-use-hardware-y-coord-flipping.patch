@@ -35,9 +35,9 @@ index 50e0404a1e9..7655e4450cb 100644
 --- a/src/gallium/include/pipe/p_defines.h
 +++ b/src/gallium/include/pipe/p_defines.h
 @@ -1009,6 +1009,7 @@ enum pipe_cap
-    PIPE_CAP_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS,
-    PIPE_CAP_QUERY_SPARSE_TEXTURE_RESIDENCY,
-    PIPE_CAP_CLAMP_SPARSE_TEXTURE_LOD,
+    PIPE_CAP_DITHERING,
+    PIPE_CAP_FBFETCH_ZS,
+    PIPE_CAP_TIMELINE_SEMAPHORE_IMPORT,
 +   PIPE_CAP_LOWER_WPOS_YTRANSFORM,
  
     PIPE_CAP_LAST,
@@ -245,15 +245,15 @@ index 6215b2bc7e9..a92aa48ace0 100644
 --- a/src/gallium/drivers/lima/lima_screen.c
 +++ b/src/gallium/drivers/lima/lima_screen.c
 @@ -119,6 +119,9 @@ lima_screen_get_param(struct pipe_screen *pscreen, enum pipe_cap param)
-    case PIPE_CAP_TGSI_FS_COORD_PIXEL_CENTER_HALF_INTEGER:
+    case PIPE_CAP_FS_COORD_PIXEL_CENTER_HALF_INTEGER:
        return 1;
  
 +   case PIPE_CAP_LOWER_WPOS_YTRANSFORM:
 +      return 0;
 +
-    case PIPE_CAP_TGSI_FS_POSITION_IS_SYSVAL:
-    case PIPE_CAP_TGSI_FS_POINT_IS_SYSVAL:
-    case PIPE_CAP_TGSI_FS_FACE_IS_INTEGER_SYSVAL:
+    case PIPE_CAP_FS_POSITION_IS_SYSVAL:
+    case PIPE_CAP_FS_POINT_IS_SYSVAL:
+    case PIPE_CAP_FS_FACE_IS_INTEGER_SYSVAL:
 -- 
 GitLab
 
