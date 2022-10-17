@@ -716,7 +716,7 @@ index 3c20ee3a7837..d10ca04c20d6 100644
  
 +	hdmi_sound: hdmi-sound {
 +		compatible = "simple-audio-card";
-+		simple-audio-card,name = "hdmi-sound";
++		simple-audio-card,name = "HDMI";
 +		simple-audio-card,format = "i2s";
 +		simple-audio-card,mclk-fs = <256>;
 +		status = "disabled";

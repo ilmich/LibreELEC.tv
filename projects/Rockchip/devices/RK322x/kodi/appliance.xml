@@ -21,7 +21,7 @@
     <category id="audio">
       <group id="1">
         <setting id="audiooutput.audiodevice">
-          <default>ALSA:hdmi:CARD=hdmisound,DEV=0</default>
+          <default>ALSA:hdmi:CARD=HDMI,DEV=0</default>
         </setting>
       </group>
       <group id="3">
