@@ -1,0 +1,47 @@
+diff -ruPN linux/drivers/gpu/drm/lima/lima_gem.c linux-new/drivers/gpu/drm/lima/lima_gem.c
+--- linux/drivers/gpu/drm/lima/lima_gem.c	2022-10-17 17:26:07.000000000 +0200
++++ linux-new/drivers/gpu/drm/lima/lima_gem.c	2022-10-25 16:11:31.169938161 +0200
+@@ -99,6 +99,16 @@
+ 	return 0;
+ }
+ 
++static void lima_gem_free_object(struct drm_gem_object *obj)
++{
++	struct lima_bo *bo = to_lima_bo(obj);
++
++	if (!list_empty(&bo->va))
++		dev_err(obj->dev->dev, "lima gem free bo still has va\n");
++
++	drm_gem_shmem_free_object(obj);
++}
++
+ int lima_gem_create_handle(struct drm_device *dev, struct drm_file *file,
+ 			   u32 size, u32 flags, u32 *handle)
+ {
+@@ -139,21 +149,15 @@
+ 
+ out:
+ 	/* drop reference from allocate - handle holds it now */
+-	drm_gem_object_put(obj);
++	if (!err) {
++		drm_gem_object_put(obj);
++	} else {
++		lima_gem_free_object(obj);
++	}
+ 
+ 	return err;
+ }
+ 
+-static void lima_gem_free_object(struct drm_gem_object *obj)
+-{
+-	struct lima_bo *bo = to_lima_bo(obj);
+-
+-	if (!list_empty(&bo->va))
+-		dev_err(obj->dev->dev, "lima gem free bo still has va\n");
+-
+-	drm_gem_shmem_free_object(obj);
+-}
+-
+ static int lima_gem_object_open(struct drm_gem_object *obj, struct drm_file *file)
+ {
+ 	struct lima_bo *bo = to_lima_bo(obj);
