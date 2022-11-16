@@ -36442,10 +36442,10 @@ index 00000000000..4b9c66a71d9
 +	}
 +	if (tkip_use_sw_cipher == true)
 +		dev_info(sc->dev, "Using software TKIP cipher\n");
-+	if ((((vif_priv->vif_idx == 0) && (tdls_use_sw_cipher == false)
++	if (0) /*((((vif_priv->vif_idx == 0) && (tdls_use_sw_cipher == false)
 +	      && (tkip_use_sw_cipher == false)))
 +	    || ((cipher == SSV_CIPHER_CCMP)
-+		&& (sc->sh->cfg.use_wpa2_only == 1))) {
++		&& (sc->sh->cfg.use_wpa2_only == 1)))*/ {
 +		sta_priv->has_hw_decrypt = true;
 +		sta_priv->need_sw_decrypt = false;
 +		if ((cipher == SSV_CIPHER_TKIP)
@@ -36509,12 +36509,12 @@ index 00000000000..4b9c66a71d9
 +	if ((cipher == SSV_CIPHER_TKIP) && (sc->sh->cfg.use_wpa2_only == 1)) {
 +		tkip_use_sw_cipher = true;
 +	}
-+	if (((vif_priv->vif_idx == 0) && (tkip_use_sw_cipher == false))
++	if (0)/*(((vif_priv->vif_idx == 0) && (tkip_use_sw_cipher == false))
 +	    || ((cipher == SSV_CIPHER_CCMP)
-+		&& (sc->sh->cfg.use_wpa2_only == 1))) {
++		&& (sc->sh->cfg.use_wpa2_only == 1)))*/ {
 +		dev_dbg(sc->dev, "VIF %d uses HW %s cipher for group.\n",
 +			vif_priv->vif_idx, cipher_name);
-+#ifdef USE_MAC80211_DECRYPT_BROADCAST
++#if defined(USE_MAC80211_DECRYPT_BROADCAST) || 1
 +		vif_priv->has_hw_decrypt = false;
 +		ret = -EOPNOTSUPP;
 +#else
@@ -36535,7 +36535,7 @@ index 00000000000..4b9c66a71d9
 +		ret = -EOPNOTSUPP;
 +	}
 +	if (vif_priv->has_hw_encrypt || vif_priv->has_hw_decrypt) {
-+#ifdef USE_MAC80211_DECRYPT_BROADCAST
++#if defined(USE_MAC80211_DECRYPT_BROADCAST) || 1
 +		ssv6200_hw_set_group_type(sc->sh, ME_NONE);
 +#else
 +		ssv6200_hw_set_group_type(sc->sh, cipher);
@@ -38919,7 +38919,7 @@ index 00000000000..4b9c66a71d9
 +		vif = sta_priv->sta_info->vif;
 +		if (vif == NULL)
 +			goto drop_rx;
-+		if (is_broadcast_ether_addr(hdr->addr1)) {
++		if (is_broadcast_ether_addr(hdr->addr1) || is_multicast_ether_addr(hdr->addr1)) {
 +			vif_priv = (struct ssv_vif_priv_data *)vif->drv_priv;
 +			rx_hw_dec = vif_priv->has_hw_decrypt;
 +			do_sw_dec = vif_priv->need_sw_decrypt;
