@@ -1,0 +1,71 @@
+diff -ruPN u-boot-68c4faa3f8204593f60dadfb560abe58b1899556/tools/rkcommon.c u-boot-new/tools/rkcommon.c
+--- u-boot-68c4faa3f8204593f60dadfb560abe58b1899556/tools/rkcommon.c	2020-03-30 08:52:08.000000000 +0200
++++ u-boot-new/tools/rkcommon.c	2022-11-30 09:21:32.405491864 +0100
+@@ -36,10 +36,20 @@
+ 	uint8_t reserved[4];
+ 	uint32_t disable_rc4;
+ 	uint16_t init_offset;
+-	uint8_t reserved1[492];
++	uint16_t init2_offset;
++	uint8_t reserved1[490];
+ 	uint16_t init_size;
+ 	uint16_t init_boot_size;
+-	uint8_t reserved2[2];
++	uint16_t crc;
++};
++
++struct header0_info1 {
++  uint16_t reservedBlock;
++  uint16_t disk0Size;
++  uint16_t disk1Size;
++  uint16_t disk2Size;
++  uint16_t disk3Size;
++  uint32_t chipTag;
+ };
+ 
+ /**
+@@ -228,7 +238,7 @@
+ 	memset(buf, '\0', RK_INIT_OFFSET * RK_BLK_SIZE);
+ 	hdr->signature = RK_SIGNATURE;
+ 	hdr->disable_rc4 = !rkcommon_need_rc4_spl(params);
+-	hdr->init_offset = RK_INIT_OFFSET;
++	hdr->init_offset = hdr->init2_offset = RK_INIT_OFFSET;
+ 	hdr->init_size = spl_params.init_size / RK_BLK_SIZE;
+ 
+ 	/*
+@@ -249,12 +259,23 @@
+ 	rc4_encode(buf, RK_BLK_SIZE, rc4_key);
+ }
+ 
++static void rkcommon_set_header0_1(void *buf, struct image_tool_params *params)
++{
++	struct header0_info1 *hdr = buf + 512;
++
++	//memset(buf + 512, '\0', RK_INIT_OFFSET * RK_BLK_SIZE);
++	hdr->reservedBlock = 0x0c;
++	hdr->disk0Size = 0xffff;
++	hdr->chipTag = 0x38324b52;
++}
++
+ void rkcommon_set_header(void *buf,  struct stat *sbuf,  int ifd,
+ 			 struct image_tool_params *params)
+ {
+ 	struct header1_info *hdr = buf + RK_SPL_HDR_START;
+ 
+ 	rkcommon_set_header0(buf, params);
++	rkcommon_set_header0_1(buf, params);
+ 
+ 	/* Set up the SPL name (i.e. copy spl_hdr over) */
+ 	if (memcmp(&hdr->magic, "RSAK", 4))
+diff -ruPN u-boot-68c4faa3f8204593f60dadfb560abe58b1899556/tools/rknand.c u-boot-new/tools/rknand.c
+--- u-boot-68c4faa3f8204593f60dadfb560abe58b1899556/tools/rknand.c	2020-03-30 08:52:08.000000000 +0200
++++ u-boot-new/tools/rknand.c	2022-11-28 15:12:23.480682164 +0100
+@@ -104,7 +104,7 @@
+ 	rkcommon_check_params,
+ 	/* TODO: Support rknand in there helpers */
+ 	NULL, //rkcommon_verify_header,
+-	NULL, //rkcommon_print_header,
++	rkcommon_print_header,
+ 	rknand_set_header,
+ 	NULL,
+ 	rknand_check_image_type,
