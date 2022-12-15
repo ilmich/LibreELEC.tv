@@ -2180,19 +2180,19 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x.dtsi linux-trip/arch/arm/boot/dts/rk32
  
 +		opp-200000000 {
 +			opp-hz = /bits/ 64 <200000000>;
-+			opp-microvolt = <1050000 1050000 1150000>;
++			opp-microvolt = <1100000 1100000 1150000>;
 +		};
 +
  		opp-300000000 {
  			opp-hz = /bits/ 64 <300000000>;
 -			opp-microvolt = <1100000 1000000 1200000>;
-+			opp-microvolt = <1050000 1050000 1150000>;
++			opp-microvolt = <1100000 1100000 1150000>;
  		};
  
  		opp-400000000 {
  			opp-hz = /bits/ 64 <400000000>;
 -			opp-microvolt = <1100000 1000000 1200000>;
-+			opp-microvolt = <1050000 1050000 1150000>;
++			opp-microvolt = <1100000 1100000 1150000>;
  		};
  
  		opp-500000000 {
