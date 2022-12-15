@@ -1,0 +1,98 @@
+From 8448720bdd662c8be9150da41bced0a52f6e8976 Mon Sep 17 00:00:00 2001
+From: Gert Wollny <gert.wollny@collabora.com>
+Date: Fri, 14 Oct 2022 15:32:40 +0200
+Subject: [PATCH] nir: fuse b2f32 and float comparisons to scmp in
+ opt_algebraic_late
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Shader-DB r600/Cayman:
+
+total dw in shared programs: 1620884 -> 1617730 (-0.19%)
+dw in affected programs: 425748 -> 422594 (-0.74%)
+helped: 267
+HURT: 5
+helped stats (abs) min: 2 max: 56 x̄: 11.93 x̃: 8
+helped stats (rel) min: 0.06% max: 10.91% x̄: 3.49% x̃: 2.70%
+HURT stats (abs)   min: 2 max: 16 x̄: 6.40 x̃: 4
+HURT stats (rel)   min: 0.14% max: 0.97% x̄: 0.42% x̃: 0.27%
+95% mean confidence interval for dw value: -13.07 -10.12
+95% mean confidence interval for dw %-change: -3.77% -3.07%
+Dw are helped.
+
+total gprs in shared programs: 41182 -> 41203 (0.05%)
+gprs in affected programs: 1338 -> 1359 (1.57%)
+helped: 63
+HURT: 74
+helped stats (abs) min: 1 max: 4 x̄: 1.21 x̃: 1
+helped stats (rel) min: 5.88% max: 27.27% x̄: 12.75% x̃: 13.33%
+HURT stats (abs)   min: 1 max: 5 x̄: 1.31 x̃: 1
+HURT stats (rel)   min: 3.85% max: 60.00% x̄: 16.72% x̃: 14.84%
+95% mean confidence interval for gprs value: -0.09 0.39
+95% mean confidence interval for gprs %-change: 0.29% 6.05%
+Inconclusive result (value mean confidence interval includes 0).
+
+total alu_groups in shared programs: 203632 -> 203324 (-0.15%)
+alu_groups in affected programs: 57746 -> 57438 (-0.53%)
+helped: 143
+HURT: 45
+helped stats (abs) min: 1 max: 16 x̄: 2.75 x̃: 1
+helped stats (rel) min: 0.05% max: 20.00% x̄: 5.64% x̃: 5.00%
+HURT stats (abs)   min: 1 max: 8 x̄: 1.89 x̃: 1
+HURT stats (rel)   min: 0.49% max: 9.64% x̄: 3.72% x̃: 2.78%
+95% mean confidence interval for alu_groups value: -2.21 -1.07
+95% mean confidence interval for alu_groups %-change: -4.23% -2.56%
+Alu_groups are helped.
+
+total loops in shared programs: 72 -> 72 (0.00%)
+loops in affected programs: 0 -> 0
+helped: 0
+HURT: 0
+
+total cf in shared programs: 88233 -> 88226 (<.01%)
+cf in affected programs: 412 -> 405 (-1.70%)
+helped: 21
+HURT: 6
+helped stats (abs) min: 1 max: 2 x̄: 1.05 x̃: 1
+helped stats (rel) min: 5.56% max: 33.33% x̄: 20.50% x̃: 20.00%
+HURT stats (abs)   min: 1 max: 6 x̄: 2.50 x̃: 2
+HURT stats (rel)   min: 0.99% max: 33.33% x̄: 11.55% x̃: 9.01%
+95% mean confidence interval for cf value: -0.94 0.42
+95% mean confidence interval for cf %-change: -19.73% -7.03%
+Inconclusive result (value mean confidence interval includes 0).
+
+total stack in shared programs: 3827 -> 3827 (0.00%)
+stack in affected programs: 0 -> 0
+helped: 0
+HURT: 0
+
+LOST:   0
+GAINED: 0
+
+Total CPU time (seconds): 45.38 -> 42.76 (-5.77%)
+
+Signed-off-by: Gert Wollny <gert.wollny@collabora.com>
+---
+ src/compiler/nir/nir_opt_algebraic.py | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/compiler/nir/nir_opt_algebraic.py b/src/compiler/nir/nir_opt_algebraic.py
+index f898f708cfa2..f64f9abd2727 100644
+--- a/src/compiler/nir/nir_opt_algebraic.py
++++ b/src/compiler/nir/nir_opt_algebraic.py
+@@ -2890,6 +2890,11 @@ late_optimizations += [
+   (('bcsel', ('flt', 'a@32', 0), 'b@32', 'c@32'), ('fcsel_gt', ('fneg', a), b, c), "options->has_fused_comp_and_csel"),
+   (('bcsel', ('fge', 'a@32', 0), 'b@32', 'c@32'), ('fcsel_ge', a, b, c), "options->has_fused_comp_and_csel"),
+   (('bcsel', ('fge', 0, 'a@32'), 'b@32', 'c@32'), ('fcsel_ge', ('fneg', a), b, c), "options->has_fused_comp_and_csel"),
++
++  (('b2f32', ('flt(is_used_once)', 'a@32', 'b@32')), ('slt', a, b), '!options->lower_scmp'),
++  (('b2f32', ('fge(is_used_once)', 'a@32', 'b@32')), ('sge', a, b), '!options->lower_scmp'),
++  (('b2f32', ('feq(is_used_once)', 'a@32', 'b@32')), ('seq', a, b), '!options->lower_scmp'),
++  (('b2f32', ('fneu(is_used_once)', 'a@32', 'b@32')), ('sne', a, b), '!options->lower_scmp'),
+ ]
+ 
+ distribute_src_mods = [
+-- 
+GitLab
+
