@@ -179,7 +179,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-hk1mini.dts linux-trip/arch/arm/bo
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp-test.dtsi"
++#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
 +	model = "Rockchip RK3229 Box";
@@ -312,7 +312,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-t95vpro.dts linux-trip/arch/arm/bo
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp-test.dtsi"
++#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
 +	model = "Rockchip RK3229 Box";
@@ -392,7 +392,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-tx2.dts linux-trip/arch/arm/boot/d
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp-test.dtsi"
++#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
 +	model = "Rockchip Tanix TX2 Box";
@@ -463,7 +463,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v884k.dts linux-trip/arch/arm/boot
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp-test.dtsi"
++#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
 +	model = "Rockchip RK3229 Box";
@@ -539,7 +539,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk3229-box-v88mars.dts linux-trip/arch/arm/bo
 +
 +/dts-v1/;
 +#include "rk322x-box-dcdc.dtsi"
-+#include "rk3229-cpu-opp-test.dtsi"
++#include "rk3229-cpu-opp.dtsi"
 +
 +/ {
 +	model = "Rockchip V88Mars Box";
