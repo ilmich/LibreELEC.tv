@@ -53,7 +53,7 @@ diff -ruPN u-boot-68c4faa3f8204593f60dadfb560abe58b1899556/tools/rkcommon.c u-bo
  	struct header1_info *hdr = buf + RK_SPL_HDR_START;
  
  	rkcommon_set_header0(buf, params);
-+	rkcommon_set_header0_1(buf, params);
++	//rkcommon_set_header0_1(buf, params);
  
  	/* Set up the SPL name (i.e. copy spl_hdr over) */
  	if (memcmp(&hdr->magic, "RSAK", 4))

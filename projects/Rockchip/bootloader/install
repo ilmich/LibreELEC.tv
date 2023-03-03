@@ -49,7 +49,9 @@ case "${PKG_SOC}" in
 esac
 
 if [ -n "${PKG_DATAFILE}" -a -n "${PKG_LOADER}" ]; then
-  tools/mkimage -v -n ${PKG_SOC} -T rksd -d "${PKG_DATAFILE}":"${PKG_LOADER}" idbloader.img
+  ## disabled tools/mkimage -v -n ${PKG_SOC} -T rksd -d "${PKG_DATAFILE}":"${PKG_LOADER}" idbloader.img
+  tools/mkimage -n ${PKG_SOC} -T rksd -d "${PKG_DATAFILE}" idbloader.img
+  cat "${PKG_LOADER}" >> idbloader.img
   cp -av idbloader.img ${INSTALL}/usr/share/bootloader
 fi
 
