@@ -35,13 +35,13 @@ index 50e0404a1e9..7655e4450cb 100644
 --- a/src/gallium/include/pipe/p_defines.h
 +++ b/src/gallium/include/pipe/p_defines.h
 @@ -1009,6 +1009,7 @@ enum pipe_cap
-    PIPE_CAP_QUERY_TIMESTAMP_BITS,
     /** For EGL_EXT_protected_content */
     PIPE_CAP_DEVICE_PROTECTED_CONTEXT,
+    PIPE_CAP_ALLOW_GLTHREAD_BUFFER_SUBDATA_OPT,
 +   PIPE_CAP_LOWER_WPOS_YTRANSFORM,
 
+    PIPE_CAP_VALIDATE_ALL_DIRTY_STATES,
     PIPE_CAP_LAST,
-    /* XXX do not add caps after PIPE_CAP_LAST! */
 diff --git a/src/mesa/state_tracker/st_glsl_to_nir.cpp b/src/mesa/state_tracker/st_glsl_to_nir.cpp
 index ac3e99ff336..bf4e9c57ccc 100644
 --- a/src/mesa/state_tracker/st_glsl_to_nir.cpp
