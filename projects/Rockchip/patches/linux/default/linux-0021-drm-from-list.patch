@@ -317,52 +317,6 @@ index b149f0ab5201..35a056e2c49b 100644
  		return ret;
 
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Qinglang Miao <miaoqinglang@huawei.com>
-Date: Tue, 1 Dec 2020 20:54:59 +0800
-Subject: [PATCH] drm/rockchip: lvds: fix reference leak when
- pm_runtime_get_sync fails
-
-The PM reference count is not expected to be incremented on
-return in functions rk3288_lvds_poweron and px30_lvds_poweron.
-
-However, pm_runtime_get_sync will increment the PM reference
-count even failed. Forgetting to putting operation will result
-in a reference leak here.
-
-Replace it with pm_runtime_resume_and_get to keep usage
-counter balanced.
-
-Fixes: cca1705c3d89 ("drm/rockchip: lvds: Add PX30 support")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Qinglang Miao <miaoqinglang@huawei.com>
----
- drivers/gpu/drm/rockchip/rockchip_lvds.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/rockchip/rockchip_lvds.c b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-index 7c20b4a24a7e..b5311c99a0e1 100644
---- a/drivers/gpu/drm/rockchip/rockchip_lvds.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_lvds.c
-@@ -145,7 +145,7 @@ static int rk3288_lvds_poweron(struct rockchip_lvds *lvds)
- 		DRM_DEV_ERROR(lvds->dev, "failed to enable lvds pclk %d\n", ret);
- 		return ret;
- 	}
--	ret = pm_runtime_get_sync(lvds->dev);
-+	ret = pm_runtime_resume_and_get(lvds->dev);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
- 		clk_disable(lvds->pclk);
-@@ -329,7 +329,7 @@ static int px30_lvds_poweron(struct rockchip_lvds *lvds)
- {
- 	int ret;
- 
--	ret = pm_runtime_get_sync(lvds->dev);
-+	ret = pm_runtime_resume_and_get(lvds->dev);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(lvds->dev, "failed to get pm runtime: %d\n", ret);
- 		return ret;
-
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Lukasz Luba <lukasz.luba@arm.com>
 Date: Tue, 5 Jan 2021 16:41:11 +0000
 Subject: [PATCH] drm/panfrost: Use delayed timer as default in devfreq profile
