@@ -165,7 +165,7 @@ index 000000000..b65307435
 + * 31: 6dB
 + * Step: 1.5dB
 + */
-+#define OUT_VOLUME	(0x18)
++#define OUT_VOLUME	(0x1a)
 +#define INITIAL_FREQ	(11289600)
 +
 +struct rk3228_codec_priv {
