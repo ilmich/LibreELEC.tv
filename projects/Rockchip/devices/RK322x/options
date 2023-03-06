@@ -23,6 +23,7 @@
 
   # Additional kernel make parameters (for example to specify the u-boot loadaddress)
     KERNEL_MAKE_EXTRACMD=" rk3229-box.dtb \
+		rk3229-box-t95vpro.dtb \
 		rk3229-box-mxq4kpro.dtb \
 		rk3229-box-mxq4kpro-ovclk.dtb \
 		rk3229-box-v884k.dtb \
