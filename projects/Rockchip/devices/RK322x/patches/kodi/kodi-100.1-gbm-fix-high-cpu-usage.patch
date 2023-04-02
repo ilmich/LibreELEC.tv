@@ -6,7 +6,7 @@ diff -ruPN xbmc-181070c647425a8730fb7d8f1c349cd750e40021/xbmc/windowing/gbm/WinS
    else
    {
 -    KODI::TIME::Sleep(10);
-+    KODI::TIME::Sleep(40);
++    KODI::TIME::Sleep(30);
    }
  }
  

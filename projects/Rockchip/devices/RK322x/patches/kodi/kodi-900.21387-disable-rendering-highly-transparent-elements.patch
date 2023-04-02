@@ -1,0 +1,23 @@
+From aaf187f2f139071cf586a4b6d1ffa1f15e6fcd49 Mon Sep 17 00:00:00 2001
+From: sarbes <sarbes@kodi.tv>
+Date: Sun, 29 May 2022 20:23:09 +0200
+Subject: [PATCH] Disable rendering highly transparent elements
+
+---
+ xbmc/guilib/GUIControl.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/xbmc/guilib/GUIControl.cpp b/xbmc/guilib/GUIControl.cpp
+index 9346872177311..a0ab741d2140e 100644
+--- a/xbmc/guilib/GUIControl.cpp
++++ b/xbmc/guilib/GUIControl.cpp
+@@ -402,7 +402,8 @@ bool CGUIControl::CanFocus() const
+ 
+ bool CGUIControl::IsVisible() const
+ {
+-  if (m_forceHidden) return false;
++  if (m_forceHidden || m_transform.alpha <= 0.01f)
++    return false;
+   return m_visible == VISIBLE;
+ }
+ 

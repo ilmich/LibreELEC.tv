@@ -1,0 +1,70 @@
+From 4cf2befed9b7d55a06127dc148b91db6c3142fc0 Mon Sep 17 00:00:00 2001
+From: sarbes <sarbes@kodi.tv>
+Date: Sat, 6 Aug 2022 18:55:34 +0200
+Subject: [PATCH] Improving/fixing transparent control rendering
+
+---
+ xbmc/guilib/GUIControl.cpp | 16 ++++++++++++++--
+ xbmc/guilib/GUIControl.h   |  1 +
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/xbmc/guilib/GUIControl.cpp b/xbmc/guilib/GUIControl.cpp
+index a0ab741d2140e..bd404757a79fd 100644
+--- a/xbmc/guilib/GUIControl.cpp
++++ b/xbmc/guilib/GUIControl.cpp
+@@ -125,6 +125,15 @@ void CGUIControl::DoProcess(unsigned int currentTime, CDirtyRegionList &dirtyreg
+   if (Animate(currentTime))
+     MarkDirtyRegion();
+ 
++  // if the control changed culling state from true to false, mark it
++  const bool culled = m_transform.alpha <= 0.01f;
++  if (m_isCulled != culled)
++  {
++    m_isCulled = false;
++    MarkDirtyRegion();
++  }
++  m_isCulled = culled;
++
+   if (IsVisible())
+   {
+     m_cachedTransform = CServiceBroker::GetWinSystem()->GetGfxContext().AddTransform(m_transform);
+@@ -168,7 +177,7 @@ void CGUIControl::Process(unsigned int currentTime, CDirtyRegionList &dirtyregio
+ // 3. reset the animation transform
+ void CGUIControl::DoRender()
+ {
+-  if (IsVisible())
++  if (IsVisible() && !m_isCulled)
+   {
+     bool hasStereo =
+         m_stereo != 0.0f &&
+@@ -402,7 +411,7 @@ bool CGUIControl::CanFocus() const
+ 
+ bool CGUIControl::IsVisible() const
+ {
+-  if (m_forceHidden || m_transform.alpha <= 0.01f)
++  if (m_forceHidden)
+     return false;
+   return m_visible == VISIBLE;
+ }
+@@ -474,6 +483,9 @@ float CGUIControl::GetHeight() const
+ 
+ void CGUIControl::MarkDirtyRegion(const unsigned int dirtyState)
+ {
++  // if the control is culled, bail
++  if (dirtyState == DIRTY_STATE_CONTROL && m_isCulled)
++    return;
+   if (!m_controlDirtyState && m_parentControl)
+     m_parentControl->MarkDirtyRegion(DIRTY_STATE_CHILD);
+ 
+diff --git a/xbmc/guilib/GUIControl.h b/xbmc/guilib/GUIControl.h
+index 1126e4558b028..ffe0e183a40dc 100644
+--- a/xbmc/guilib/GUIControl.h
++++ b/xbmc/guilib/GUIControl.h
+@@ -370,6 +370,7 @@ class CGUIControl
+   float m_stereo;
+   TransformMatrix m_transform;
+   TransformMatrix m_cachedTransform; // Contains the absolute transform the control
++  bool m_isCulled{true};
+ 
+   static const unsigned int DIRTY_STATE_CONTROL = 1; //This control is dirty
+   static const unsigned int DIRTY_STATE_CHILD = 2; //One / more children are dirty

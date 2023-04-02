@@ -1,0 +1,18 @@
+diff -ruPN xbmc-20.1-Nexus/addons/skin.estuary/xml/Includes.xml xbmc-20.1-new/addons/skin.estuary/xml/Includes.xml
+--- xbmc-20.1-Nexus/addons/skin.estuary/xml/Includes.xml	2023-03-11 23:16:38.000000000 +0100
++++ xbmc-20.1-new/addons/skin.estuary/xml/Includes.xml	2023-03-22 15:13:02.403028397 +0100
+@@ -1131,12 +1131,12 @@
+ 			<aspectratio>scale</aspectratio>
+ 			<texture colordiffuse="primary_background">special://skin/extras/backgrounds/primary.jpg</texture>
+ 		</control>
+-		<control type="image">
++		<!--control type="image">
+ 			<depth>DepthBackground</depth>
+ 			<include>FullScreenDimensions</include>
+ 			<aspectratio>scale</aspectratio>
+ 			<texture colordiffuse="secondary_background" fallback="special://skin/extras/backgrounds/pattern1.jpg">$INFO[Skin.String(background_overlay),special://skin/extras/backgrounds/pattern,.jpg]</texture>
+-		</control>
++		</control-->
+ 	</include>
+ 	<include name="DefaultBackground">
+ 		<definition>
