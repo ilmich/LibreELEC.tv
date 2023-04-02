@@ -14,4 +14,9 @@ PKG_TOOLCHAIN="manual"
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/share/kodi/addons/
     cp -a $(get_install_dir kodi)/.noinstall/skin.estuary ${INSTALL}/usr/share/kodi/addons/
+
+    for file in ${INSTALL}/usr/share/kodi/addons/skin.estuary/extras/backgrounds/*.jpg; do 
+        mogrify -resize 960x540! -colorspace Gray -quality 90 "$file"
+    done
+
 }
