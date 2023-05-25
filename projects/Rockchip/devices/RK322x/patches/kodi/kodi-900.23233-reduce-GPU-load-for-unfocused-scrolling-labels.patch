@@ -1,0 +1,24 @@
+From 851e06343a357e2e479a3c1314a2c472575a8766 Mon Sep 17 00:00:00 2001
+From: CrystalP <crystalp@kodi.tv>
+Date: Thu, 4 May 2023 02:44:00 -0400
+Subject: [PATCH] [guilib] stop Process()ing a container item with its focused
+ layout when the item doesn't have the focus anymore.
+
+Labels that started scrolling due to insufficient space for the text otherwise keep getting marked dirty, even when not rendered anymore due to focus loss, causing GUI redraw every frame and high GPU usage.
+---
+ xbmc/guilib/GUIBaseContainer.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xbmc/guilib/GUIBaseContainer.cpp b/xbmc/guilib/GUIBaseContainer.cpp
+index b6260b5e04357..cfc3b589a6330 100644
+--- a/xbmc/guilib/GUIBaseContainer.cpp
++++ b/xbmc/guilib/GUIBaseContainer.cpp
+@@ -237,7 +237,7 @@ void CGUIBaseContainer::ProcessItem(float posX, float posY, CGUIListItemPtr& ite
+       CGUIListItemLayoutPtr layout = std::make_unique<CGUIListItemLayout>(*m_layout, this);
+       item->SetLayout(std::move(layout));
+     }
+-    if (item->GetFocusedLayout())
++    if (item->GetFocusedLayout() && item->GetFocusedLayout()->IsAnimating(ANIM_TYPE_UNFOCUS))
+       item->GetFocusedLayout()->Process(item.get(), m_parentID, currentTime, dirtyregions);
+     if (item->GetLayout())
+       item->GetLayout()->Process(item.get(), m_parentID, currentTime, dirtyregions);
