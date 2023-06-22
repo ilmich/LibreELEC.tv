@@ -960,8 +960,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-dcdc.dtsi linux-trip/arch/arm/boot
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/rk322x-box.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-trip/arch/arm/boot/dts/rk322x-box.dtsi	2023-03-02 11:35:04.945957102 +0100
-@@ -0,0 +1,1083 @@
++++ linux-trip/arch/arm/boot/dts/rk322x-box.dtsi	2023-06-01 19:48:17.560017056 +0200
+@@ -0,0 +1,1092 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -1486,7 +1486,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +			<0xfd KEY_VOLUMEDOWN>,
 +			<0xff KEY_POWER>,
 +			<0xf3 KEY_MUTE>,
-+			<0xbf KEY_I>,
++			<0xbf KEY_C>,
 +			<0xbe KEY_1>,
 +			<0xba KEY_2>,
 +			<0xb2 KEY_3>,
@@ -1497,7 +1497,16 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-trip/arch/arm/boot/dts/
 +			<0xb8 KEY_8>,
 +			<0xb0 KEY_9>,
 +			<0xb6 KEY_0>,
-+			<0xb5 KEY_BACKSPACE>;
++			<0xb5 KEY_BACKSPACE>,
++			<0xfe KEY_M>,
++			<0xfa KEY_T>,
++			<0xf6 KEY_E>,
++			<0xf2 KEY_A>,
++			<0xf9 KEY_PAGEDOWN>,
++			<0xf5 KEY_PAGEUP>,
++			<0xfc KEY_HOME>,
++			<0xb3 KEY_I>,
++			<0xb7 KEY_O>;
 +	};
 +
 +	ir_key6 {
