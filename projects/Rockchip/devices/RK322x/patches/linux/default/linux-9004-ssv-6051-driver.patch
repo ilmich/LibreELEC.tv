@@ -2477,7 +2477,7 @@ index 00000000000..273777cd048
 +	glue->ioport_reg =
 +	    glue->ioport_reg | (sdio_readb(func, REG_REG_IO_PORT_2, &err_ret) <<
 +			       (8 * 2));
-+	dev_dbg(&func->dev, "ioport_data=0x%x ioport_reg=0x%x\n",
++	dev_info(&func->dev, "ioport_data=0x%x ioport_reg=0x%x\n",
 +		glue->ioport_data, glue->ioport_reg);
 +	err_ret = sdio_set_block_size(func, CONFIG_PLATFORM_SDIO_BLOCK_SIZE);
 +	if (err_ret != 0) {
