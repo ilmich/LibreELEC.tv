@@ -39,9 +39,9 @@ index 50e0404a1e9..7655e4450cb 100644
     PIPE_CAP_DEVICE_PROTECTED_CONTEXT,
     PIPE_CAP_ALLOW_GLTHREAD_BUFFER_SUBDATA_OPT,
 +   PIPE_CAP_LOWER_WPOS_YTRANSFORM,
-
-    PIPE_CAP_VALIDATE_ALL_DIRTY_STATES,
-    PIPE_CAP_LAST,
+    PIPE_CAP_NULL_TEXTURES,
+    PIPE_CAP_ASTC_VOID_EXTENTS_NEED_DENORM_FLUSH,
+ 
 diff --git a/src/mesa/state_tracker/st_glsl_to_nir.cpp b/src/mesa/state_tracker/st_glsl_to_nir.cpp
 index ac3e99ff336..bf4e9c57ccc 100644
 --- a/src/mesa/state_tracker/st_glsl_to_nir.cpp
@@ -107,9 +107,9 @@ index 99ae182999c..c9f0cda9159 100644
  
     struct pipe_surface *zsbuf;      /**< Z/stencil buffer */
 +   bool flip_y;
+ 
+    struct pipe_resource *resolve;
  };
- 
- 
 diff --git a/src/mesa/state_tracker/st_atom_framebuffer.c b/src/mesa/state_tracker/st_atom_framebuffer.c
 index 88ca3201b99..deadfecf89d 100644
 --- a/src/mesa/state_tracker/st_atom_framebuffer.c
