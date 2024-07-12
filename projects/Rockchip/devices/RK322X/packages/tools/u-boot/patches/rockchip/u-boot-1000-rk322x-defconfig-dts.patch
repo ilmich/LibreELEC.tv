@@ -1,7 +1,6 @@
-diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-box.dts u-boot-new/arch/arm/dts/rk322x-box.dts
 --- u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-box.dts	1970-01-01 01:00:00.000000000 +0100
-+++ u-boot-new/arch/arm/dts/rk322x-box.dts	2022-01-26 10:11:24.960209651 +0100
-@@ -0,0 +1,40 @@
++++ u-boot-r329q_3.1/arch/arm/dts/rk322x-box.dts	2024-06-24 23:23:14.603469703 +0200
+@@ -0,0 +1,46 @@
 +/*
 + * (C) Copyright 2017 Rockchip Electronics Co., Ltd.
 + *
@@ -29,10 +28,16 @@ diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-b
 +};
 +
 +&emmc {
++	u-boot,dm-spl;
 +	clock-frequency = <50000000>;
 +	clock-freq-min-max = <400000 50000000>;
++	broken-cd;
++	cap-mmc-highspeed;
 +	mmc-hs200-1_8v;
-+       max-frequency = <50000000>;
++	supports-emmc;
++	disable-wp;
++	non-removable;
++        max-frequency = <50000000>;
 +	/delete-property/ pinctrl-names; 
 +	/delete-property/ pinctrl-0;
 +	/delete-property/ default-sample-phase;
@@ -42,9 +47,8 @@ diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-b
 +&nandc {
 +	status = "disabled";
 +};
-diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-box.dtsi u-boot-new/arch/arm/dts/rk322x-box.dtsi
 --- u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ u-boot-new/arch/arm/dts/rk322x-box.dtsi	2022-01-26 09:58:53.845178207 +0100
++++ u-boot-r329q_3.1/arch/arm/dts/rk322x-box.dtsi	2024-06-24 23:16:22.695536024 +0200
 @@ -0,0 +1,140 @@
 +/*
 + * (C) Copyright 2017 Rockchip Electronics Co., Ltd.
@@ -186,10 +190,9 @@ diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/arch/arm/dts/rk322x-b
 +	};
 +
 +};
-diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/configs/rk322x-linux-miniloader_defconfig u-boot-new/configs/rk322x-linux-miniloader_defconfig
 --- u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/configs/rk322x-linux-miniloader_defconfig	1970-01-01 01:00:00.000000000 +0100
-+++ u-boot-new/configs/rk322x-linux-miniloader_defconfig	2022-01-26 10:13:25.228214686 +0100
-@@ -0,0 +1,105 @@
++++ u-boot-r329q_3.1/configs/rk322x-linux-miniloader_defconfig	2024-06-24 23:27:28.729734685 +0200
+@@ -0,0 +1,113 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_ROCKCHIP=y
 +CONFIG_SPL_LIBCOMMON_SUPPORT=y
@@ -249,6 +252,14 @@ diff -ruPN u-boot-e311da245800596d57b7b7d91ebd4a730747a9ec/configs/rk322x-linux-
 +CONFIG_ROCKCHIP_EFUSE=y
 +CONFIG_MMC_DW=y
 +CONFIG_MMC_DW_ROCKCHIP=y
++# PoC.ng - add r329q 3.1 emmc boot support test 1
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_SDMA=y
++CONFIG_MMC_SDHCI_ROCKCHIP=y
++CONFIG_NAND=y
++CONFIG_SYS_NAND_SELF_INIT=y
++CONFIG_NAND_ROCKCHIP=y
++# End
 +CONFIG_DM_ETH=y
 +CONFIG_ETH_DESIGNWARE=y
 +CONFIG_GMAC_ROCKCHIP=y
