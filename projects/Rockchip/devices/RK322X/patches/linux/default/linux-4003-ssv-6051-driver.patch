@@ -32278,7 +32278,7 @@ index 000000000000..b1b6f0510d28
 +#######################################################
 +ccflags-y += -DCONFIG_SSV6200_HAS_RX_WORKQUEUE
 +#ccflags-y += -DUSE_THREAD_RX -DPREFER_RX
-+#ccflags-y += -DUSE_THREAD_TX
++ccflags-y += -DPREFER_RX
 +ccflags-y += -DENABLE_AGGREGATE_IN_TIME
 +ccflags-y += -DENABLE_INCREMENTAL_AGGREGATION
 +
@@ -32306,7 +32306,7 @@ index 000000000000..b1b6f0510d28
 +#ccflags-y += -DCONFIG_RX_MGMT_CHECK
 +
 +#force SW Broadcast/Multicast decryption
-+#ccflags-y += -DUSE_MAC80211_DECRYPT_BROADCAST
++ccflags-y += -DUSE_MAC80211_DECRYPT_BROADCAST
 \ No newline at end of file
 diff --git a/drivers/net/wireless/ssv6051/rules.mak b/drivers/net/wireless/ssv6051/rules.mak
 new file mode 100644
