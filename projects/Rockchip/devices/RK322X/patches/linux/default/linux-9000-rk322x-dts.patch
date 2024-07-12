@@ -1,6 +1,6 @@
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-mxq4k.dts linux-new/arch/arm/boot/dts/rk322x-box-mxq4k.dts
 --- linux/arch/arm/boot/dts/rk322x-box-mxq4k.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box-mxq4k.dts	2024-03-19 12:21:32.398337479 +0100
++++ linux-new/arch/arm/boot/dts/rk322x-box-mxq4k.dts	2024-06-09 07:53:01.569912570 +0200
 @@ -0,0 +1,64 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -68,8 +68,8 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-mxq4k.dts linux-new/arch/arm/boot/
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-mxq4k_r29.dts linux-new/arch/arm/boot/dts/rk322x-box-mxq4k_r29.dts
 --- linux/arch/arm/boot/dts/rk322x-box-mxq4k_r29.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box-mxq4k_r29.dts	2023-12-02 08:55:47.330528284 +0100
-@@ -0,0 +1,32 @@
++++ linux-new/arch/arm/boot/dts/rk322x-box-mxq4k_r29.dts	2024-05-15 19:17:00.274011021 +0200
+@@ -0,0 +1,36 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -102,6 +102,11 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-mxq4k_r29.dts linux-new/arch/arm/b
 +&dmc {
 +	status = "okay";
 +};
++
++&emmc {
++	max-frequency = <50000000>;
++};
+\ Manca newline alla fine del file
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-mxq4kpro.dts linux-new/arch/arm/boot/dts/rk322x-box-mxq4kpro.dts
 --- linux/arch/arm/boot/dts/rk322x-box-mxq4kpro.dts	1970-01-01 01:00:00.000000000 +0100
 +++ linux-new/arch/arm/boot/dts/rk322x-box-mxq4kpro.dts	2023-12-02 07:39:23.903336405 +0100
@@ -367,7 +372,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-v884k.dts linux-new/arch/arm/boot/
 \ Manca newline alla fine del file
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box-v88mars.dts linux-new/arch/arm/boot/dts/rk322x-box-v88mars.dts
 --- linux/arch/arm/boot/dts/rk322x-box-v88mars.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box-v88mars.dts	2024-03-23 10:02:56.848002212 +0100
++++ linux-new/arch/arm/boot/dts/rk322x-box-v88mars.dts	2024-07-07 09:34:00.865380098 +0200
 @@ -0,0 +1,45 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -411,13 +416,13 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box-v88mars.dts linux-new/arch/arm/boo
 +	};
 +	
 +	opp-1392000000 {
-+		status = "okay";
++		status = "disabled";
 +	};
 +};
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dts linux-new/arch/arm/boot/dts/rk322x-box.dts
 --- linux/arch/arm/boot/dts/rk322x-box.dts	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box.dts	2023-12-01 09:45:49.822036958 +0100
-@@ -0,0 +1,28 @@
++++ linux-new/arch/arm/boot/dts/rk322x-box.dts	2024-05-15 19:16:05.179008715 +0200
+@@ -0,0 +1,32 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
 +/dts-v1/;
@@ -446,9 +451,14 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dts linux-new/arch/arm/boot/dts/rk
 +	};
 +*/
 +};
++
++&emmc {
++	max-frequency = <50000000>;
++};
+\ Manca newline alla fine del file
 diff -ruPN linux/arch/arm/boot/dts/rk322x-box.dtsi linux-new/arch/arm/boot/dts/rk322x-box.dtsi
 --- linux/arch/arm/boot/dts/rk322x-box.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-box.dtsi	2023-12-10 14:40:23.173991422 +0100
++++ linux-new/arch/arm/boot/dts/rk322x-box.dtsi	2024-05-15 19:14:46.332005414 +0200
 @@ -0,0 +1,465 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -968,7 +978,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-legacy.dtsi linux-new/arch/arm/boot/dt
 +};*/
 diff -ruPN linux/arch/arm/boot/dts/rk322x-opp.dtsi linux-new/arch/arm/boot/dts/rk322x-opp.dtsi
 --- linux/arch/arm/boot/dts/rk322x-opp.dtsi	1970-01-01 01:00:00.000000000 +0100
-+++ linux-new/arch/arm/boot/dts/rk322x-opp.dtsi	2024-03-16 09:12:30.320694674 +0100
++++ linux-new/arch/arm/boot/dts/rk322x-opp.dtsi	2024-07-10 16:39:49.606789179 +0200
 @@ -0,0 +1,157 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
@@ -997,7 +1007,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-opp.dtsi linux-new/arch/arm/boot/dts/r
 +		opp-696000000 {
 +			opp-hz = /bits/ 64 <696000000>;
 +			opp-microvolt = <1000000 1000000 1275000>;
-+			opp-microvolt-L0 = <1025000 1000000 1275000>;
++			opp-microvolt-L0 = <1025000 1025000 1275000>;
 +			opp-microvolt-L1 = <1000000 1000000 1275000>;
 +		};
 +		opp-816000000 {
@@ -1057,12 +1067,12 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-opp.dtsi linux-new/arch/arm/boot/dts/r
 +		};
 +		opp-656000000 {
 +			opp-hz = /bits/ 64 <656000000>;
-+			opp-microvolt = <1100000 1050000 1200000>;
++			opp-microvolt = <1075000 1075000 1200000>;
 +			status = "disabled";
 +		};
 +		opp-728000000 {
 +			opp-hz = /bits/ 64 <728000000>;
-+			opp-microvolt = <1150000 1050000 1200000>;
++			opp-microvolt = <1125000 1125000 1200000>;
 +			status = "disabled";
 +		};
 +
@@ -1085,12 +1095,12 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-opp.dtsi linux-new/arch/arm/boot/dts/r
 +		
 +		opp-400000000 {
 +			opp-hz = /bits/ 64 <400000000>;
-+			opp-microvolt = <1100000 1050000 1200000>;
++			opp-microvolt = <1075000 1075000 1200000>;
 +		};
 +		
 +		opp-500000000 {
 +			opp-hz = /bits/ 64 <500000000>;
-+			opp-microvolt = <1150000 1050000 1200000>;
++			opp-microvolt = <1125000 1125000 1200000>;
 +			status = "disabled";
 +		};
 +	};
@@ -1117,7 +1127,7 @@ diff -ruPN linux/arch/arm/boot/dts/rk322x-opp.dtsi linux-new/arch/arm/boot/dts/r
 +		map2 {
 +			trip = <&cpu_alert1>;
 +			cooling-device =
-+			<&gpu THERMAL_NO_LIMIT 1>;
++			<&gpu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
 +		};
 +		
 +		map3 {
