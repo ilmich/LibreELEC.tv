@@ -5,6 +5,6 @@
     <!-- hardwaredirtyregions>true</hardwaredirtyregions -->
   </gui>
 <imageres>540</imageres>
-<fanartres>720</fanartres>
+<fanartres>540</fanartres>
 <imagescalingalgorithm>bicubic</imagescalingalgorithm>
 </advancedsettings>
